@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product API</title>
+</head>
+<body>
+
+    <center>
+        <h2>Products Data</h2>
+        <table border="1" cellspacing="0" cellpading="5">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Photo</th>
+            </tr>
+            <tbody id="data"></tbody>
+        </table>
+    </center>
+
+
+    
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        
+        $.ajax({
+            type : "GET",
+            url : "https://dummyjson.com/products",
+            success:function(rec){
+                let user = rec.products;
+                let tbl = "";
+                user.map((item)=>{
+                    return (
+                    tbl += `
+                            <tr>
+                                <td style="width:50px; font-size:20px;font-waite:600; text-align:center">${item.id}</td>
+                                <td style="width:80px; text-align:center">${item.title}</td>
+                                <td style="width:50px; font-size:20px;font-waite:600; text-align:center" >${item.price}</td>
+                                <td style="width:50px; font-size:20px;font-waite:600; text-align:center" >${item.stock}</td>
+                                <td style="width:600px; font-size:15px; text-align:center">${item.description}</td>
+                                <td style="text-align:center">${item.brand}</td>
+                                <td><img src="${item.thumbnail}" style="width:80px; height:100px"></td>
+                            </tr>
+                           `
+                    )
+                })
+                document.getElementById('data').innerHTML = tbl;
+            }
+        })
+
+
+    </script>
+
+</html>
